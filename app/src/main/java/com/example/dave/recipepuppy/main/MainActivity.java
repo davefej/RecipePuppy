@@ -1,7 +1,9 @@
-package com.example.dave.recipepuppy;
+package com.example.dave.recipepuppy.main;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.dave.recipepuppy.R;
 
 public class MainActivity extends AppCompatActivity {
 

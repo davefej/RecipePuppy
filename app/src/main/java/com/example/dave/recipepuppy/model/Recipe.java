@@ -4,17 +4,17 @@ import com.orm.SugarRecord;
 
 public class Recipe extends SugarRecord<Recipe> {
 
-    String title;
-    String href;
-    String ingredients;
-    String imgurl;
-    boolean favorite;
+    private String title;
+    private String href;
+    private String ingredients;
+    private String imgurl;
+    private boolean favorite;
 
     Recipe(){
 
     }
 
-    Recipe(String title, String href, String ingredients, String imgurl, boolean favorite){
+    public Recipe(String title, String href, String ingredients, String imgurl, boolean favorite){
         this.title = title;
         this.href = href;
         this.ingredients = ingredients;
@@ -31,4 +31,39 @@ public class Recipe extends SugarRecord<Recipe> {
         }
     }
 
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public String getImgurl() {
+        return imgurl;
+    }
+
+    public void setImgurl(String imgurl) {
+        this.imgurl = imgurl;
+    }
+
+    public String getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public String getHref() {
+        return href;
+    }
+
+    public void setHref(String href) {
+        this.href = href;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 }

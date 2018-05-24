@@ -23,8 +23,10 @@ public interface RecipeAppConponent {
 
     void inject(RecipeListPresenter recipeListPresenter);
 
-    void inject(RecipeActivity mainActivity);
+    void inject(RecipePresenter recipePresenter);
 
-    void inject(RecipeListActivity recipeInteractor);
+    void inject(RecipeActivity recipeActivity);
+
+    void inject(RecipeListActivity recipeListActivity);
 
 }

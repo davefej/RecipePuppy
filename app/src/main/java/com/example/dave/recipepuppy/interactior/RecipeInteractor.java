@@ -10,6 +10,7 @@ import com.example.dave.recipepuppy.network.RecipeApi;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -44,23 +45,41 @@ public class RecipeInteractor {
             return null;
         }else{
             List<NetworkRecipe> list =  response.body().getRecipes();
-            List<Recipe> list2 = new ArrayList<Recipe>();
-            for (NetworkRecipe item: list) {
-                list2.add(new Recipe(
-                        item.getTitle(),
-                        item.getHref(),
-                        item.getIngredients(),
-                        item.getThumbnail(),
-                        false
-                ));
+            loadedRecipes = mapRecipeModel(list);
+            for(Recipe r : loadedRecipes){
+                if(isFavorite(r.getHref())){
+                    r.setFavorite(true);
+                }
             }
-            loadedRecipes = list2;
             return loadedRecipes;
         }
     }
 
+
+    public List<Recipe> mapRecipeModel(List<NetworkRecipe> list){
+        List<Recipe> list2 = new ArrayList<Recipe>();
+        for (NetworkRecipe item: list) {
+            boolean favorite = false;
+            list2.add(new Recipe(
+                    item.getTitle(),
+                    item.getHref(),
+                    item.getIngredients(),
+                    item.getThumbnail(),
+                    favorite
+            ));
+        }
+        return list2;
+    }
+
+
+
     public List<Recipe> listFavorites() {
-        return Recipe.find(Recipe.class,"favorites = ?",SUGAR_TRUE);
+        Iterator<Recipe> iter = Recipe.findAll(Recipe.class);
+        List<Recipe> copy = new ArrayList<Recipe>();
+        while (iter.hasNext()){
+            copy.add(iter.next());
+        }
+        return copy;
     }
 
     public void addToFavorites(String url) {
@@ -76,9 +95,27 @@ public class RecipeInteractor {
     }
 
     public void removeFromFavorites(String url) {
-        List<Recipe> favorites =  Recipe.find(Recipe.class,"href = ?",url);
+        List<Recipe> favorites =  recipesByHref(url);
         for (Recipe recipe: favorites) {
             recipe.delete();
         }
     }
+
+    public void changeFavorites(String href) {
+        if(isFavorite(href)){
+            removeFromFavorites(href);
+        }else{
+            addToFavorites(href);
+        }
+    }
+
+    public boolean isFavorite(String href) {
+        List<Recipe> favorites =  recipesByHref(href);
+        return !(favorites == null || favorites.size() == 0);
+    }
+
+    private List<Recipe> recipesByHref(String href){
+        return Recipe.find(Recipe.class,"href = ?",href);
+    }
+
 }

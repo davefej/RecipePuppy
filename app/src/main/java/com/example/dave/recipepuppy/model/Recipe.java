@@ -10,7 +10,7 @@ public class Recipe extends SugarRecord<Recipe> {
     private String imgurl;
     private boolean favorite;
 
-    Recipe(){
+    public Recipe(){
 
     }
 
@@ -24,11 +24,6 @@ public class Recipe extends SugarRecord<Recipe> {
 
     public void setFavorite(boolean favorite){
         this.favorite = favorite;
-        if(favorite == true){
-            this.save();
-        }else{
-            this.delete();
-        }
     }
 
     public boolean isFavorite() {

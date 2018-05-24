@@ -17,7 +17,6 @@ public interface RecipeApi {
   @GET("api")
   Call<NetworkRecipeResult> listRecipes(
           @Query("q") String keyword
-
   );
 
 }

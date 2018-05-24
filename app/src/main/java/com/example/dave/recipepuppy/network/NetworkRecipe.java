@@ -12,7 +12,7 @@ public class NetworkRecipe {
     private String ingredients;
     private String thumbnail;
 
-    NetworkRecipe(String title, String href, String ingredients, String thumbnail){
+    public NetworkRecipe(String title, String href, String ingredients, String thumbnail){
         this.title = title;
         this.href = href;
         this.ingredients = ingredients;

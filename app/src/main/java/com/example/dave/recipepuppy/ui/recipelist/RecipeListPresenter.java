@@ -29,26 +29,32 @@ public class RecipeListPresenter extends Presenter<RecipeListScreen>{
         super.detachScreen();
     }
 
-    public void addToFavorites(){
-        screen.addToFavorites();
+    public void addToFavorites(Recipe r){
+        r.setFavorite(true);
+        recipeInteractor.addToFavorites(r.getHref());
     }
 
-    public void showRecipe(String recipeUrl){
-        screen.showRecipe(recipeUrl);
+    public void showRecipe(Recipe recipe){
+        screen.showRecipe(recipe);
     }
 
     public void loadRecipes(final String keyword){
         networkExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                recipeInteractor.listRecipes(keyword);
-                //TODO
+                List<Recipe> list = recipeInteractor.listRecipes(keyword);
+                screen.listRecipes(list);
+
             }
         });
-
     }
 
     public void loadFavorites() {
-        recipeInteractor.listFavorites();
+        screen.listRecipes(recipeInteractor.listFavorites());
+    }
+
+    public void removeFromFavorites(Recipe r) {
+        r.setFavorite(false);
+        recipeInteractor.removeFromFavorites(r.getHref());
     }
 }

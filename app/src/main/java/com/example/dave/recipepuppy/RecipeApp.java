@@ -3,8 +3,9 @@ package com.example.dave.recipepuppy;
 import android.app.Application;
 
 import com.example.dave.recipepuppy.ui.UIModule;
+import com.orm.SugarApp;
 
-public class RecipeApp extends Application{
+public class RecipeApp extends SugarApp{
 
     public static RecipeAppConponent injector;
 

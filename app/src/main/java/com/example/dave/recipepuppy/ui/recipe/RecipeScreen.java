@@ -4,5 +4,5 @@ public interface RecipeScreen {
 
     void addToFavorites();
 
-    void loadRecipe(String url);
+
 }

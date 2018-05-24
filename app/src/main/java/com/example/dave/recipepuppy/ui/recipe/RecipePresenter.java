@@ -1,7 +1,9 @@
 package com.example.dave.recipepuppy.ui.recipe;
 
+import com.example.dave.recipepuppy.RecipeApp;
 import com.example.dave.recipepuppy.interactior.RecipeInteractor;
 import com.example.dave.recipepuppy.ui.Presenter;
+import com.example.dave.recipepuppy.ui.main.MainScreen;
 
 import java.util.concurrent.Executor;
 
@@ -18,6 +20,7 @@ public class RecipePresenter extends Presenter<RecipeScreen> {
     @Override
     public void attachScreen(RecipeScreen screen) {
         super.attachScreen(screen);
+        RecipeApp.injector.inject(this);
     }
 
     @Override
@@ -25,12 +28,9 @@ public class RecipePresenter extends Presenter<RecipeScreen> {
         super.detachScreen();
     }
 
-    public void addToFavorites(){
-        screen.addToFavorites();
-    }
 
-    public void loadRecipe(String recipeUrl){
-        screen.loadRecipe(recipeUrl);
+    public void changeFavorites(String href) {
+        recipeInteractor.changeFavorites(href);
     }
 
 }
